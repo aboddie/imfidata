@@ -1,0 +1,154 @@
+from __future__ import annotations
+
+import xml.etree.ElementTree as ET
+from typing import Iterable, List, Tuple
+
+import pandas as pd
+import sdmx
+from sdmx import Resource
+
+from . import auth
+from .sdmx_client import get_client
+from .utils import make_env_from_pairs
+
+# ---------- Dataflow / dataset registry ----------
+
+def show_imf_datasets(needs_auth: bool = False) -> pd.DataFrame:
+    """
+    Fetches the IMF SDMX Dataflow registry and returns a DataFrame:
+    columns: id, version, agencyID, name_en
+    """
+    import requests
+    url = "https://api.imf.org/external/sdmx/2.1/dataflow?references=none&detail=allstubs"
+    headers = auth.auth_header(needs_auth=needs_auth)
+
+    resp = requests.get(url, headers=headers)
+    resp.raise_for_status()
+
+    root = ET.fromstring(resp.content)
+    ns = {
+        "str": "http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure",
+        "com": "http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common",
+        "xml": "http://www.w3.org/XML/1998/namespace",
+    }
+
+    rows = []
+    for df in root.findall(".//str:Dataflow", ns):
+        name_el = df.find("com:Name[@xml:lang='en']", ns)
+        rows.append(
+            {
+                "id": df.get("id"),
+                "version": df.get("version"),
+                "agencyID": df.get("agencyID"),
+                "name_en": name_el.text if name_el is not None else None,
+            }
+        )
+
+    return pd.DataFrame(rows, columns=["id", "version", "agencyID", "name_en"])
+
+
+# ---------- DSD helpers ----------
+
+def _get_dsd(dataset: str) -> sdmx.message.StructureMessage:
+    client = get_client()
+    dsd_id = f"DSD_{dataset}"
+    return client.datastructure(dsd_id, params=dict(references="descendants"))
+
+
+def get_dimension_names(dataset: str) -> pd.DataFrame:
+    """
+    Return dimension names for a dataset as a DataFrame with one column "Dimension".
+    """
+    client = get_client()
+    dsd_id = f"DSD_{dataset}"
+    msg = client.get(resource_type=Resource.datastructure, resource_id=dsd_id)
+    descriptor = msg.dataflow[0].structure.dimensions
+    dim_list = sdmx.to_pandas(descriptor)
+    return pd.DataFrame(dim_list, columns=["Dimension"])
+
+
+def get_dimension_values(dataset: str, dimension: str, addcl: bool = True) -> pd.DataFrame:
+    """
+    Return codes for a dimension as DataFrame with columns ["code", "name"].
+    """
+    ds = _get_dsd(dataset)
+    cl_id = f"CL_{dimension}" if addcl and not dimension.startswith("CL_") else dimension
+    cl = ds.codelist[cl_id]
+    rows = [{"code": code.id, "name": str(getattr(code, "name", ""))} for code in cl]
+    return pd.DataFrame(rows, columns=["code", "name"])
+
+
+def get_dimension_values_env(dataset: str, dimension: str, addcl: bool = True) ->  DimensionEnv:
+    """
+    Return  the DataFrame 
+
+    """
+    ds = _get_dsd(dataset)
+    cl_id = f"CL_{dimension}" if addcl and not dimension.startswith("CL_") else dimension
+    cl = ds.codelist[cl_id]
+
+    rows = [{"code": code.id, "name": str(getattr(code, "name", ""))} for code in cl]
+    #df = pd.DataFrame(rows, columns=["code", "name"])
+    env = make_env_from_pairs((r["name"], r["code"]) for r in rows)
+    return  env
+
+def get_dimension_values_and_env(dataset: str, dimension: str, addcl: bool = True) -> Tuple[pd.DataFrame, DimensionEnv]:
+    """
+    Convenience: return both the DataFrame and a dot-accessible env built from it.
+    Avoids a second fetch and re-parsing.
+    """
+    ds = _get_dsd(dataset)
+    cl_id = f"CL_{dimension}" if addcl and not dimension.startswith("CL_") else dimension
+    cl = ds.codelist[cl_id]
+
+    rows = [{"code": code.id, "name": str(getattr(code, "name", ""))} for code in cl]
+    df = pd.DataFrame(rows, columns=["code", "name"])
+    env = make_env_from_pairs((r["name"], r["code"]) for r in rows)
+    return  df, env
+
+
+def get_dimension_env(dataset: str, dimension: str, addcl: bool = True):
+    """
+    Convenience: build a dot-accessible env mapping sanitized labels to codes.
+    """
+    df = get_dimension_values(dataset, dimension, addcl=addcl)
+    pairs: Iterable[Tuple[str, str]] = [(row["name"], row["code"]) for _, row in df.iterrows()]
+    return make_env_from_pairs(pairs)
+
+
+def get_codelists(dataset: str) -> pd.DataFrame:
+    """
+    Return summary of all codelists in the dataset DSD.
+    Columns: codelist_id, name, version, n_codes
+    """
+    sm = _get_dsd(dataset)
+    rows = []
+    for cl_id, cl in sm.codelist.items():
+        rows.append(
+            {
+                "codelist_id": cl_id,
+                "name": str(getattr(cl, "name", "")),
+                "version": str(getattr(cl, "version", "")),
+                "n_codes": len(cl),
+            }
+        )
+    return pd.DataFrame(rows, columns=["codelist_id", "name", "version", "n_codes"])
+
+
+def get_subcodelist(dataset: str, codelist_id: str) -> pd.DataFrame:
+    """
+    Return the codes for a single codelist as DataFrame with columns:
+    code_id, name, description
+    """
+    sm = _get_dsd(dataset)
+    cl = sm.codelist[codelist_id]
+    rows = []
+    for code in cl:
+        rows.append(
+            {
+                "code_id": code.id,
+                "name": str(getattr(code, "name", "")),
+                "description": str(getattr(code, "description", "")),
+            }
+        )
+    return pd.DataFrame(rows, columns=["code_id", "name", "description"])

@@ -1,0 +1,139 @@
+ Volume in drive D is DATA
+ Volume Serial Number is 5CCD-DC32
+
+ Directory of D:\imfidata
+
+08/13/2025  08:18 PM    <DIR>          .
+08/13/2025  08:18 PM                 0 dirs.txt
+08/13/2025  03:45 PM               802 pyproject.toml
+08/13/2025  09:52 AM                 0 README.md
+08/13/2025  05:25 PM    <DIR>          src
+               3 File(s)            802 bytes
+
+ Directory of D:\imfidata\.git
+
+08/13/2025  08:18 PM    <DIR>          ..
+08/13/2025  05:12 PM               130 config
+08/13/2025  05:12 PM                73 description
+08/13/2025  05:12 PM                21 HEAD
+08/13/2025  05:12 PM    <DIR>          hooks
+08/13/2025  05:12 PM    <DIR>          info
+08/13/2025  05:12 PM    <DIR>          objects
+08/13/2025  05:12 PM    <DIR>          refs
+               3 File(s)            224 bytes
+
+ Directory of D:\imfidata\.git\hooks
+
+08/13/2025  05:12 PM    <DIR>          .
+08/13/2025  05:12 PM               478 applypatch-msg.sample
+08/13/2025  05:12 PM               896 commit-msg.sample
+08/13/2025  05:12 PM             4,726 fsmonitor-watchman.sample
+08/13/2025  05:12 PM               189 post-update.sample
+08/13/2025  05:12 PM               424 pre-applypatch.sample
+08/13/2025  05:12 PM             1,649 pre-commit.sample
+08/13/2025  05:12 PM               416 pre-merge-commit.sample
+08/13/2025  05:12 PM             1,374 pre-push.sample
+08/13/2025  05:12 PM             4,898 pre-rebase.sample
+08/13/2025  05:12 PM               544 pre-receive.sample
+08/13/2025  05:12 PM             1,492 prepare-commit-msg.sample
+08/13/2025  05:12 PM             2,783 push-to-checkout.sample
+08/13/2025  05:12 PM             2,308 sendemail-validate.sample
+08/13/2025  05:12 PM             3,650 update.sample
+              14 File(s)         25,827 bytes
+
+ Directory of D:\imfidata\.git\info
+
+08/13/2025  05:12 PM    <DIR>          .
+08/13/2025  05:12 PM               240 exclude
+               1 File(s)            240 bytes
+
+ Directory of D:\imfidata\.git\objects
+
+08/13/2025  05:12 PM    <DIR>          .
+08/13/2025  05:12 PM    <DIR>          info
+08/13/2025  05:12 PM    <DIR>          pack
+               0 File(s)              0 bytes
+
+ Directory of D:\imfidata\.git\objects\info
+
+08/13/2025  05:12 PM    <DIR>          .
+08/13/2025  05:12 PM    <DIR>          ..
+               0 File(s)              0 bytes
+
+ Directory of D:\imfidata\.git\objects\pack
+
+08/13/2025  05:12 PM    <DIR>          .
+08/13/2025  05:12 PM    <DIR>          ..
+               0 File(s)              0 bytes
+
+ Directory of D:\imfidata\.git\refs
+
+08/13/2025  05:12 PM    <DIR>          .
+08/13/2025  05:12 PM    <DIR>          heads
+08/13/2025  05:12 PM    <DIR>          tags
+               0 File(s)              0 bytes
+
+ Directory of D:\imfidata\.git\refs\heads
+
+08/13/2025  05:12 PM    <DIR>          .
+08/13/2025  05:12 PM    <DIR>          ..
+               0 File(s)              0 bytes
+
+ Directory of D:\imfidata\.git\refs\tags
+
+08/13/2025  05:12 PM    <DIR>          .
+08/13/2025  05:12 PM    <DIR>          ..
+               0 File(s)              0 bytes
+
+ Directory of D:\imfidata\src
+
+08/13/2025  05:25 PM    <DIR>          .
+08/13/2025  08:18 PM    <DIR>          ..
+08/13/2025  05:25 PM    <DIR>          imfidata
+08/13/2025  05:25 PM    <DIR>          imfidata.egg-info
+               0 File(s)              0 bytes
+
+ Directory of D:\imfidata\src\imfidata
+
+08/13/2025  05:25 PM    <DIR>          .
+08/13/2025  05:25 PM    <DIR>          ..
+08/13/2025  10:15 AM             2,615 auth.py
+08/13/2025  10:15 AM             5,478 metadata.py
+08/13/2025  02:31 PM             4,091 retrieval.py
+08/13/2025  10:10 AM               272 sdmx_client.py
+08/13/2025  03:22 PM             2,227 utils.py
+08/13/2025  10:15 AM               541 __init__.py
+08/13/2025  05:25 PM    <DIR>          __pycache__
+               6 File(s)         15,224 bytes
+
+ Directory of D:\imfidata\src\imfidata\__pycache__
+
+08/13/2025  05:25 PM    <DIR>          .
+08/13/2025  05:25 PM    <DIR>          ..
+08/13/2025  10:18 AM             3,858 auth.cpython-312.pyc
+08/13/2025  09:52 AM             3,525 helpers.cpython-311.pyc
+08/13/2025  09:58 AM             2,898 helpers.cpython-312.pyc
+08/13/2025  09:52 AM             9,395 metadata.cpython-311.pyc
+08/13/2025  10:18 AM             8,046 metadata.cpython-312.pyc
+08/13/2025  09:52 AM             2,498 retrieval.cpython-311.pyc
+08/13/2025  02:32 PM             4,636 retrieval.cpython-312.pyc
+08/13/2025  10:18 AM               425 sdmx_client.cpython-312.pyc
+08/13/2025  03:23 PM             4,273 utils.cpython-312.pyc
+08/13/2025  09:52 AM               636 __init__.cpython-311.pyc
+08/13/2025  10:18 AM               715 __init__.cpython-312.pyc
+              11 File(s)         40,905 bytes
+
+ Directory of D:\imfidata\src\imfidata.egg-info
+
+08/13/2025  05:25 PM    <DIR>          .
+08/13/2025  05:25 PM    <DIR>          ..
+08/13/2025  03:22 PM                 1 dependency_links.txt
+08/13/2025  03:22 PM               822 PKG-INFO
+08/13/2025  03:22 PM                21 requires.txt
+08/13/2025  03:22 PM               350 SOURCES.txt
+08/13/2025  03:22 PM                 9 top_level.txt
+               5 File(s)          1,203 bytes
+
+     Total Files Listed:
+              43 File(s)         84,425 bytes
+              34 Dir(s)  892,562,796,544 bytes free
