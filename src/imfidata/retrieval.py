@@ -69,7 +69,7 @@ def convert_time_period_auto(df, time_col='TIME_PERIOD', out_col='date'):
 
 
 def imfdata_by_key(
-    resource_id: str,
+    dataset: str,
     key: str,
     params: dict = None,
     needs_auth: bool = True,
@@ -99,7 +99,7 @@ def imfdata_by_key(
     client = sdmx.Client('IMF_DATA')
     try:
         msg = client.data(
-            resource_id=resource_id,
+            resource_id=dataset,
             key=key,
             params=params or {},
             headers=headers
@@ -113,4 +113,4 @@ def imfdata_by_key(
         return df
 
     except Exception as e:
-        raise RuntimeError(f"Error fetching {resource_id}: {e}")
+        raise RuntimeError(f"Error fetching {dataset}: {e}")
