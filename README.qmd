@@ -1,9 +1,18 @@
-
 ---
 title: "iData"
-format: html
+format:
+  html:
+    toc: false
+    code-copy: true
+    df-print: paged   # Avoids inline <style> blocks from pandas HTML repr
+execute:
+  echo: true
+  warning: false
+  message: false
+  cache: false
+freeze: auto
+jupyter: python3
 ---
-
 
 ## Why this tutorial?
 
@@ -20,17 +29,14 @@ IMF’s SDMX endpoints power gems like CPI, GFS, and WEO. The official snippets 
 
 ## Setup
 
-### 1. Install
+### 1) Install
 
 ```{python}
 # If you don't have imfidata yet, uncomment and run:
-# Installation instructions to follow
 # %pip install imfidata
 ```
 
-
-
-### 2. Import
+### 2) Import
 
 ```{python}
 import imfidata as idata
@@ -77,7 +83,6 @@ weolive = mydatasets.query("id == 'WEO_LIVE'")
 weolive
 ```
 
-
 ---
 
 ## Dimensions: what fields do I need?
@@ -98,7 +103,7 @@ dimensions = idata.metadata.get_dimension_names("CPI")
 dimensions
 ```
 
-You’ll see the dimension “names” you must populate when building a key (e.g., country, indicator/index type, COICOP, transformation, frequency).
+You’ll see the dimension “names” you must populate when building a key (e.g., country, index type, COICOP, transformation, frequency).
 
 ---
 
@@ -106,7 +111,7 @@ You’ll see the dimension “names” you must populate when building a key (e.
 
 Typing cryptic SDMX codes by hand is… not fun. `imfidata` can generate Python “environments” that **autocomplete** descriptive names to the right codes.
 
-### Build an environment for a CPI dimension
+### Build environments for CPI dimensions
 
 ```{python}
 indexes = idata.metadata.get_dimension_env("CPI", "INDEX_TYPE")
@@ -122,29 +127,27 @@ coicops
 
 ### About transformation codes
 
-[The next issue needs to be fixed by STA.  In dimensions we have `CL_TYPE_OF_TRANSFORMATION`
-but in codelists we have `CL_CPI_TYPE_OF_TRANSFORMATION`]
+> Note: In dimensions you may see `CL_TYPE_OF_TRANSFORMATION`, while in codelists you may see `CL_CPI_TYPE_OF_TRANSFORMATION`.
 
 ```{python}
 transforms = idata.metadata.get_dimension_env("CPI", "CL_CPI_TYPE_OF_TRANSFORMATION")
 transforms
 ```
 
-
 ---
 
 ## Build a CPI key (countries × index × COICOP × transform × freq)
 
-**Rule of thumb:** Don’t pass raw strings when an environment is available—use the autocompleted objects so you get valid codes. Also make sure to put entries in a list--not as a string.
+**Rule of thumb:** Don’t pass raw strings when an environment is available—use the autocompleted objects so you get valid codes. Also put entries in **lists**, not raw strings.
 
 ```{python}
-mycountries = ["USA", "NLD"]  # ISO3
-myindexes   = [indexes.Consumer_price_index_CPI]
-mycoicops   = [coicops.All_Items]
-mytransforms= [transforms.Index]
-myfreq      = ["M"]  # monthly
+mycountries  = ["USA", "NLD"]  # ISO3
+myindexes    = [indexes.Consumer_price_index_CPI]
+mycoicops    = [coicops.All_Items]
+mytransforms = [transforms.Index]
+myfreq       = ["M"]  # monthly
 
-key = [mycountries, myindexes, mycoicops, mytransforms, myfreq]
+key    = [mycountries, myindexes, mycoicops, mytransforms, myfreq]
 keystr = idata.utils.make_key_str(key)
 keystr
 ```
@@ -156,11 +159,11 @@ keystr
 ## Download CPI data
 
 ```{python}
-temp = idata.retrieval.imfdata_by_key(dataset="CPI", key=keystr)
-temp
+cpi = idata.retrieval.imfdata_by_key(dataset="CPI", key=keystr)
+cpi
 ```
 
-You should get a tidy DataFrame with time series for both USA and NLD. From here you can plot, resample, or export.
+You should get a tidy DataFrame with monthly series for both USA and NLD.
 
 ---
 
@@ -169,21 +172,21 @@ You should get a tidy DataFrame with time series for both USA and NLD. From here
 WEO identifiers differ from CPI. If you already know the selector pattern, you can pass a compact key directly:
 
 ```{python}
-temp = idata.retrieval.imfdata_by_key(dataset="WEO", key="USA+NLD.LUR.A")
-temp
+weo = idata.retrieval.imfdata_by_key(dataset="WEO", key="USA+NLD.LUR.A")  # LUR = unemployment rate, A = annual
+weo
 ```
-
-Here, `LUR` is the unemployment rate concept; `A` = annual.
 
 ---
 
 ## WEO\_LIVE: download the live feed (requires auth)
 
 ```{python}
-temp = idata.retrieval.imfdata_by_key(dataset="WEO_LIVE",
-                                      key="USA+NLD.LUR.A",
-                                      needs_auth=True)
-temp
+weo_live = idata.retrieval.imfdata_by_key(
+    dataset="WEO_LIVE",
+    key="USA+NLD.LUR.A",
+    needs_auth=True
+)
+weo_live
 ```
 
 If you get an auth error, confirm your credentials/tokens and that your environment exposes them (e.g., via env vars or a config file).
@@ -192,18 +195,18 @@ If you get an auth error, confirm your credentials/tokens and that your environm
 
 ## Codelists & subcodelists (for labels and mapping)
 
-Want to discover the human-readable labels for codes? Pull the **codelists**:
+Discover the human-readable labels for codes by pulling **codelists**:
 
 ```{python}
-temp = idata.metadata.get_codelists(dataset="CPI")
-temp
+codelists = idata.metadata.get_codelists(dataset="CPI")
+codelists
 ```
 
 Drill down to a specific codelist:
 
 ```{python}
-temp = idata.metadata.get_subcodelist(dataset="CPI", codelist_id="CL_DEPARTMENT")
-temp
+dept = idata.metadata.get_subcodelist(dataset="CPI", codelist_id="CL_DEPARTMENT")
+dept
 ```
 
 Use these to build lookup tables for reporting or to validate selections.
@@ -212,8 +215,8 @@ Use these to build lookup tables for reporting or to validate selections.
 
 ## Tips & troubleshooting
 
-* **Autocomplete is your friend:** Use `make_dimension_env` so your IDE helps you select valid items.
-
+* **Autocomplete is your friend:** Use `get_dimension_env(...)` so your IDE helps you select valid items.
+* If exporting to GitHub README (GFM), render this doc with `--to gfm` and prefer `DataFrame.to_markdown(...)` inside chunks to get pure Markdown tables.
 
 ---
 
@@ -226,9 +229,9 @@ import imfidata as idata
 _ = idata.metadata.get_dimension_names("CPI")
 
 # Build dim envs (with autocomplete)
-indexes    = idata.metadata.get_dimension_env("CPI","INDEX_TYPE")
-coicops    = idata.metadata.get_dimension_env("CPI","COICOP_1999")
-transforms = idata.metadata.get_dimension_env("CPI","CL_CPI_TYPE_OF_TRANSFORMATION")  # or CL_TYPE_OF_TRANSFORMATION
+indexes    = idata.metadata.get_dimension_env("CPI", "INDEX_TYPE")
+coicops    = idata.metadata.get_dimension_env("CPI", "COICOP_1999")
+transforms = idata.metadata.get_dimension_env("CPI", "CL_CPI_TYPE_OF_TRANSFORMATION")  # or CL_TYPE_OF_TRANSFORMATION
 
 # Assemble key
 key = [
@@ -245,4 +248,5 @@ cpi = idata.retrieval.imfdata_by_key(dataset="CPI", key=keystr)
 cpi.head()
 ```
 
-
+```
+```

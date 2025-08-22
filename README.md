@@ -21,15 +21,14 @@ a clean, reproducible workflow using the `imfidata` package—focusing on:
 
 ## Setup
 
-### 1. Install
+### 1) Install
 
 ``` python
 # If you don't have imfidata yet, uncomment and run:
-# Installation instructions to follow
 # %pip install imfidata
 ```
 
-### 2. Import
+### 2) Import
 
 ``` python
 import imfidata as idata
@@ -61,19 +60,19 @@ mydatasets
     }
 </style>
 
-|     | id                  | version | agencyID | name_en                                           |
-|-----|---------------------|---------|----------|---------------------------------------------------|
-| 0   | AFRREO              | 6.0.1   | IMF.AFR  | Sub-Saharan Africa Regional Economic Outlook (... |
-| 1   | HPD                 | 1.0.0   | IMF.FAD  | Historical Public Debt (HPD)                      |
-| 2   | PI                  | 2.0.0   | IMF.STA  | Production Indexes (PI)                           |
-| 3   | APDREO              | 6.0.0   | IMF.APD  | Asia and Pacific Regional Economic Outlook (AP... |
-| 4   | MFS_ODC             | 9.0.1   | IMF.STA  | Monetary and Financial Statistics (MFS), Other... |
-| ... | ...                 | ...     | ...      | ...                                               |
-| 62  | FSIC                | 13.0.1  | IMF.STA  | Financial Soundness Indicators (FSI), Core and... |
-| 63  | ANEA                | 6.0.1   | IMF.STA  | National Economic Accounts (NEA), Annual Data     |
-| 64  | ISORA_2018_DATA_PUB | 2.0.0   | ISORA    | ISORA 2018 Data                                   |
-| 65  | FM                  | 5.0.0   | IMF.FAD  | Fiscal Monitor (FM)                               |
-| 66  | GFS_COFOG           | 11.0.0  | IMF.STA  | GFS Government Expenditures by Function           |
+|     | id      | version | agencyID | name_en                                           |
+|-----|---------|---------|----------|---------------------------------------------------|
+| 0   | AFRREO  | 6.0.1   | IMF.AFR  | Sub-Saharan Africa Regional Economic Outlook (... |
+| 1   | MFS_ODC | 9.0.1   | IMF.STA  | Monetary and Financial Statistics (MFS), Other... |
+| 2   | PIP     | 4.0.0   | IMF.STA  | Portfolio Investment Positions by Counterpart ... |
+| 3   | HPD     | 1.0.0   | IMF.FAD  | Historical Public Debt (HPD)                      |
+| 4   | APDREO  | 6.0.0   | IMF.APD  | Asia and Pacific Regional Economic Outlook (AP... |
+| ... | ...     | ...     | ...      | ...                                               |
+| 62  | DIP     | 12.0.0  | IMF.STA  | Direct Investment Positions by Counterpart Eco... |
+| 63  | SRD     | 1.0.0   | IMF.RES  | Structural Reform Database (SRD)                  |
+| 64  | BOP     | 21.0.0  | IMF.STA  | Balance of Payments (BOP)                         |
+| 65  | QGFS    | 11.0.0  | IMF.STA  | Quarterly Government Finance Statistics (QGFS)    |
+| 66  | PI      | 2.0.0   | IMF.STA  | Production Indexes (PI)                           |
 
 <p>67 rows × 4 columns</p>
 </div>
@@ -106,10 +105,10 @@ res
 
 |     | id   | version | agencyID | name_en                                     |
 |-----|------|---------|----------|---------------------------------------------|
-| 1   | HPD  | 1.0.0   | IMF.FAD  | Historical Public Debt (HPD)                |
-| 19  | GDD  | 2.0.0   | IMF.FAD  | Global Debt Database (GDD)                  |
-| 38  | ICSD | 1.0.0   | IMF.FAD  | Investment and Capital Stock Dataset (ICSD) |
-| 65  | FM   | 5.0.0   | IMF.FAD  | Fiscal Monitor (FM)                         |
+| 3   | HPD  | 1.0.0   | IMF.FAD  | Historical Public Debt (HPD)                |
+| 30  | FM   | 5.0.0   | IMF.FAD  | Fiscal Monitor (FM)                         |
+| 47  | GDD  | 2.0.0   | IMF.FAD  | Global Debt Database (GDD)                  |
+| 57  | ICSD | 1.0.0   | IMF.FAD  | Investment and Capital Stock Dataset (ICSD) |
 
 </div>
 
@@ -168,19 +167,19 @@ mydatasets
     }
 </style>
 
-|     | id      | version | agencyID    | name_en                                           |
-|-----|---------|---------|-------------|---------------------------------------------------|
-| 0   | AFRREO  | 6.0.1   | IMF.AFR     | Sub-Saharan Africa Regional Economic Outlook (... |
-| 1   | FSI     | 3.0.1   | IMF.RES     | Financial Stress Index (FSI)                      |
-| 2   | MFS_ODC | 9.0.1   | IMF.STA     | Monetary and Financial Statistics (MFS), Other... |
-| 3   | PIP     | 4.0.0   | IMF.STA     | Portfolio Investment Positions by Counterpart ... |
-| 4   | GDS     | 2.0.0   | IMF.RES.GDS | Global Data Source (GDS)                          |
-| ... | ...     | ...     | ...         | ...                                               |
-| 80  | SRD     | 1.0.0   | IMF.RES     | Structural Reform Database (SRD)                  |
-| 81  | BOP     | 21.0.0  | IMF.STA     | Balance of Payments (BOP)                         |
-| 82  | QGFS    | 11.0.0  | IMF.STA     | Quarterly Government Finance Statistics (QGFS)    |
-| 83  | PI      | 2.0.0   | IMF.STA     | Production Indexes (PI)                           |
-| 84  | CCI     | 3.0.0   | IMF.STA     | Climate Change Indicators (CCI)                   |
+|     | id       | version | agencyID | name_en                                           |
+|-----|----------|---------|----------|---------------------------------------------------|
+| 0   | CFBL     | 1.0.0   | IMF.STA  | Carbon Footprint of Bank Loans (CFBL)             |
+| 1   | IIPCC    | 13.0.0  | IMF.STA  | Currency Composition of the International Inve... |
+| 2   | FSICDM   | 7.0.0   | IMF.STA  | Financial Soundness Indicators (FSI), Concentr... |
+| 3   | ICSD     | 1.0.0   | IMF.FAD  | Investment and Capital Stock Dataset (ICSD)       |
+| 4   | WTOIMFTT | 2.0.1   | WTO      | WTO-IMF Tariff Tracker (WTOIMFTT)                 |
+| ... | ...      | ...     | ...      | ...                                               |
+| 80  | GDD      | 2.0.0   | IMF.FAD  | Global Debt Database (GDD)                        |
+| 81  | ITG      | 4.0.0   | IMF.STA  | International Trade in Goods (ITG)                |
+| 82  | GPI      | 3.0.0   | IMF.STA  | Government Policy Indicators (GPI)                |
+| 83  | MFS_DC   | 7.0.1   | IMF.STA  | Monetary and Financial Statistics (MFS), Depos... |
+| 84  | APDREO   | 6.0.0   | IMF.APD  | Asia and Pacific Regional Economic Outlook (AP... |
 
 <p>85 rows × 4 columns</p>
 </div>
@@ -209,7 +208,7 @@ weolive
 
 |     | id       | version | agencyID    | name_en                           |
 |-----|----------|---------|-------------|-----------------------------------|
-| 7   | WEO_LIVE | 3.0.0   | IMF.RES.WEO | World Economic Outlook (WEO) Live |
+| 37  | WEO_LIVE | 3.0.0   | IMF.RES.WEO | World Economic Outlook (WEO) Live |
 
 </div>
 
@@ -291,8 +290,7 @@ dimensions
 </div>
 
 You’ll see the dimension “names” you must populate when building a key
-(e.g., country, indicator/index type, COICOP, transformation,
-frequency).
+(e.g., country, index type, COICOP, transformation, frequency).
 
 ------------------------------------------------------------------------
 
@@ -302,7 +300,7 @@ Typing cryptic SDMX codes by hand is… not fun. `imfidata` can generate
 Python “environments” that **autocomplete** descriptive names to the
 right codes.
 
-### Build an environment for a CPI dimension
+### Build environments for CPI dimensions
 
 ``` python
 indexes = idata.metadata.get_dimension_env("CPI", "INDEX_TYPE")
@@ -324,9 +322,8 @@ coicops
 
 ### About transformation codes
 
-\[The next issue needs to be fixed by STA. In dimensions we have
-`CL_TYPE_OF_TRANSFORMATION` but in codelists we have
-`CL_CPI_TYPE_OF_TRANSFORMATION`\]
+> Note: In dimensions you may see `CL_TYPE_OF_TRANSFORMATION`, while in
+> codelists you may see `CL_CPI_TYPE_OF_TRANSFORMATION`.
 
 ``` python
 transforms = idata.metadata.get_dimension_env("CPI", "CL_CPI_TYPE_OF_TRANSFORMATION")
@@ -340,17 +337,17 @@ transforms
 ## Build a CPI key (countries × index × COICOP × transform × freq)
 
 **Rule of thumb:** Don’t pass raw strings when an environment is
-available—use the autocompleted objects so you get valid codes. Also
-make sure to put entries in a list–not as a string.
+available—use the autocompleted objects so you get valid codes. Also put
+entries in **lists**, not raw strings.
 
 ``` python
-mycountries = ["USA", "NLD"]  # ISO3
-myindexes   = [indexes.Consumer_price_index_CPI]
-mycoicops   = [coicops.All_Items]
-mytransforms= [transforms.Index]
-myfreq      = ["M"]  # monthly
+mycountries  = ["USA", "NLD"]  # ISO3
+myindexes    = [indexes.Consumer_price_index_CPI]
+mycoicops    = [coicops.All_Items]
+mytransforms = [transforms.Index]
+myfreq       = ["M"]  # monthly
 
-key = [mycountries, myindexes, mycoicops, mytransforms, myfreq]
+key    = [mycountries, myindexes, mycoicops, mytransforms, myfreq]
 keystr = idata.utils.make_key_str(key)
 keystr
 ```
@@ -365,11 +362,9 @@ and valid.
 ## Download CPI data
 
 ``` python
-temp = idata.retrieval.imfdata_by_key(dataset="CPI", key=keystr)
-temp
+cpi = idata.retrieval.imfdata_by_key(dataset="CPI", key=keystr)
+cpi
 ```
-
-    xml.Reader got no structure=… argument for StructureSpecificData
 
 <div>
 
@@ -405,8 +400,8 @@ temp
 
 </div>
 
-You should get a tidy DataFrame with time series for both USA and NLD.
-From here you can plot, resample, or export.
+You should get a tidy DataFrame with monthly series for both USA and
+NLD.
 
 ------------------------------------------------------------------------
 
@@ -416,11 +411,9 @@ WEO identifiers differ from CPI. If you already know the selector
 pattern, you can pass a compact key directly:
 
 ``` python
-temp = idata.retrieval.imfdata_by_key(dataset="WEO", key="USA+NLD.LUR.A")
-temp
+weo = idata.retrieval.imfdata_by_key(dataset="WEO", key="USA+NLD.LUR.A")  # LUR = unemployment rate, A = annual
+weo
 ```
-
-    xml.Reader got no structure=… argument for StructureSpecificData
 
 <div>
 
@@ -456,20 +449,18 @@ temp
 
 </div>
 
-Here, `LUR` is the unemployment rate concept; `A` = annual.
-
 ------------------------------------------------------------------------
 
 ## WEO_LIVE: download the live feed (requires auth)
 
 ``` python
-temp = idata.retrieval.imfdata_by_key(dataset="WEO_LIVE",
-                                      key="USA+NLD.LUR.A",
-                                      needs_auth=True)
-temp
+weo_live = idata.retrieval.imfdata_by_key(
+    dataset="WEO_LIVE",
+    key="USA+NLD.LUR.A",
+    needs_auth=True
+)
+weo_live
 ```
-
-    xml.Reader got no structure=… argument for StructureSpecificData
 
 <div>
 
@@ -512,12 +503,11 @@ environment exposes them (e.g., via env vars or a config file).
 
 ## Codelists & subcodelists (for labels and mapping)
 
-Want to discover the human-readable labels for codes? Pull the
-**codelists**:
+Discover the human-readable labels for codes by pulling **codelists**:
 
 ``` python
-temp = idata.metadata.get_codelists(dataset="CPI")
-temp
+codelists = idata.metadata.get_codelists(dataset="CPI")
+codelists
 ```
 
 <div>
@@ -557,8 +547,8 @@ temp
 Drill down to a specific codelist:
 
 ``` python
-temp = idata.metadata.get_subcodelist(dataset="CPI", codelist_id="CL_DEPARTMENT")
-temp
+dept = idata.metadata.get_subcodelist(dataset="CPI", codelist_id="CL_DEPARTMENT")
+dept
 ```
 
 <div>
@@ -624,8 +614,11 @@ selections.
 
 ## Tips & troubleshooting
 
-- **Autocomplete is your friend:** Use `make_dimension_env` so your IDE
-  helps you select valid items.
+- **Autocomplete is your friend:** Use `get_dimension_env(...)` so your
+  IDE helps you select valid items.
+- If exporting to GitHub README (GFM), render this doc with `--to gfm`
+  and prefer `DataFrame.to_markdown(...)` inside chunks to get pure
+  Markdown tables.
 
 ------------------------------------------------------------------------
 
@@ -638,9 +631,9 @@ import imfidata as idata
 _ = idata.metadata.get_dimension_names("CPI")
 
 # Build dim envs (with autocomplete)
-indexes    = idata.metadata.get_dimension_env("CPI","INDEX_TYPE")
-coicops    = idata.metadata.get_dimension_env("CPI","COICOP_1999")
-transforms = idata.metadata.get_dimension_env("CPI","CL_CPI_TYPE_OF_TRANSFORMATION")  # or CL_TYPE_OF_TRANSFORMATION
+indexes    = idata.metadata.get_dimension_env("CPI", "INDEX_TYPE")
+coicops    = idata.metadata.get_dimension_env("CPI", "COICOP_1999")
+transforms = idata.metadata.get_dimension_env("CPI", "CL_CPI_TYPE_OF_TRANSFORMATION")  # or CL_TYPE_OF_TRANSFORMATION
 
 # Assemble key
 key = [
@@ -656,8 +649,6 @@ keystr = idata.utils.make_key_str(key)
 cpi = idata.retrieval.imfdata_by_key(dataset="CPI", key=keystr)
 cpi.head()
 ```
-
-    xml.Reader got no structure=… argument for StructureSpecificData
 
 <div>
 
