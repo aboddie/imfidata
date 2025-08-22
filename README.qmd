@@ -1,0 +1,248 @@
+
+---
+title: "iData"
+format: html
+---
+
+
+## Why this tutorial?
+
+IMF’s SDMX endpoints power gems like CPI, GFS, and WEO. The official snippets are useful but not exactly beginner-friendly. This guide shows a clean, reproducible workflow using the `imfidata` package—focusing on:
+
+- Discovering datasets (including internal/auth-gated ones)
+- Inspecting **dimensions** and **codelists**
+- Building valid **keys** with autocompletion
+- Downloading tidy data you can analyze immediately
+
+> If you’re new to SDMX: think of a dataset as a table, **dimensions** as the “fields” you must specify (e.g., country, indicator, frequency), and a **key** as the compact string that selects the slice you want.
+
+---
+
+## Setup
+
+### 1. Install
+
+```{python}
+# If you don't have imfidata yet, uncomment and run:
+# Installation instructions to follow
+# %pip install imfidata
+```
+
+
+
+### 2. Import
+
+```{python}
+import imfidata as idata
+```
+
+---
+
+## Explore: what datasets are available?
+
+### List all public IMF datasets
+
+```{python}
+mydatasets = idata.metadata.show_imf_datasets()
+mydatasets
+```
+
+You’ll get a DataFrame with columns like `id`, `name`, `agencyID`, etc.
+
+### Filter by agency (example: FAD)
+
+```{python}
+res = mydatasets.query("agencyID == 'IMF.FAD'")
+res
+```
+
+### Check if a dataset is accessible (WEO\_LIVE)
+
+```{python}
+weolive = mydatasets.query("id == 'WEO_LIVE'")
+weolive
+```
+
+`WEO_LIVE` requires authentication. Let’s now include internal datasets.
+
+### Include internal/auth-gated datasets
+
+```{python}
+mydatasets = idata.metadata.show_imf_datasets(needs_auth=True)
+mydatasets
+```
+
+```{python}
+weolive = mydatasets.query("id == 'WEO_LIVE'")
+weolive
+```
+
+
+---
+
+## Dimensions: what fields do I need?
+
+Each dataset defines its variables in a **Data Structure Definition (DSD)**.
+
+### Example: WEO
+
+```{python}
+dimensions = idata.metadata.get_dimension_names("WEO")
+dimensions
+```
+
+### Example: CPI
+
+```{python}
+dimensions = idata.metadata.get_dimension_names("CPI")
+dimensions
+```
+
+You’ll see the dimension “names” you must populate when building a key (e.g., country, indicator/index type, COICOP, transformation, frequency).
+
+---
+
+## Developer-friendly keys with autocompletion
+
+Typing cryptic SDMX codes by hand is… not fun. `imfidata` can generate Python “environments” that **autocomplete** descriptive names to the right codes.
+
+### Build an environment for a CPI dimension
+
+```{python}
+indexes = idata.metadata.get_dimension_env("CPI", "INDEX_TYPE")
+indexes
+```
+
+Type `indexes.` in your editor and let autocomplete reveal options like `Consumer_price_index_CPI`. Selecting it yields the correct code at runtime.
+
+```{python}
+coicops = idata.metadata.get_dimension_env("CPI", "COICOP_1999")
+coicops
+```
+
+### About transformation codes
+
+[The next issue needs to be fixed by STA.  In dimensions we have `CL_TYPE_OF_TRANSFORMATION`
+but in codelists we have `CL_CPI_TYPE_OF_TRANSFORMATION`]
+
+```{python}
+transforms = idata.metadata.get_dimension_env("CPI", "CL_CPI_TYPE_OF_TRANSFORMATION")
+transforms
+```
+
+
+---
+
+## Build a CPI key (countries × index × COICOP × transform × freq)
+
+**Rule of thumb:** Don’t pass raw strings when an environment is available—use the autocompleted objects so you get valid codes. Also make sure to put entries in a list--not as a string.
+
+```{python}
+mycountries = ["USA", "NLD"]  # ISO3
+myindexes   = [indexes.Consumer_price_index_CPI]
+mycoicops   = [coicops.All_Items]
+mytransforms= [transforms.Index]
+myfreq      = ["M"]  # monthly
+
+key = [mycountries, myindexes, mycoicops, mytransforms, myfreq]
+keystr = idata.utils.make_key_str(key)
+keystr
+```
+
+`keystr` is your SDMX key string (e.g., `USA+NLD.CPI.ALL...M`)—compact and valid.
+
+---
+
+## Download CPI data
+
+```{python}
+temp = idata.retrieval.imfdata_by_key(dataset="CPI", key=keystr)
+temp
+```
+
+You should get a tidy DataFrame with time series for both USA and NLD. From here you can plot, resample, or export.
+
+---
+
+## WEO: download published data
+
+WEO identifiers differ from CPI. If you already know the selector pattern, you can pass a compact key directly:
+
+```{python}
+temp = idata.retrieval.imfdata_by_key(dataset="WEO", key="USA+NLD.LUR.A")
+temp
+```
+
+Here, `LUR` is the unemployment rate concept; `A` = annual.
+
+---
+
+## WEO\_LIVE: download the live feed (requires auth)
+
+```{python}
+temp = idata.retrieval.imfdata_by_key(dataset="WEO_LIVE",
+                                      key="USA+NLD.LUR.A",
+                                      needs_auth=True)
+temp
+```
+
+If you get an auth error, confirm your credentials/tokens and that your environment exposes them (e.g., via env vars or a config file).
+
+---
+
+## Codelists & subcodelists (for labels and mapping)
+
+Want to discover the human-readable labels for codes? Pull the **codelists**:
+
+```{python}
+temp = idata.metadata.get_codelists(dataset="CPI")
+temp
+```
+
+Drill down to a specific codelist:
+
+```{python}
+temp = idata.metadata.get_subcodelist(dataset="CPI", codelist_id="CL_DEPARTMENT")
+temp
+```
+
+Use these to build lookup tables for reporting or to validate selections.
+
+---
+
+## Tips & troubleshooting
+
+* **Autocomplete is your friend:** Use `make_dimension_env` so your IDE helps you select valid items.
+
+
+---
+
+## Minimal end-to-end example (CPI, monthly, All Items)
+
+```{python}
+import imfidata as idata
+
+# Discover dimensions
+_ = idata.metadata.get_dimension_names("CPI")
+
+# Build dim envs (with autocomplete)
+indexes    = idata.metadata.get_dimension_env("CPI","INDEX_TYPE")
+coicops    = idata.metadata.get_dimension_env("CPI","COICOP_1999")
+transforms = idata.metadata.get_dimension_env("CPI","CL_CPI_TYPE_OF_TRANSFORMATION")  # or CL_TYPE_OF_TRANSFORMATION
+
+# Assemble key
+key = [
+    ["USA","NLD"],
+    [indexes.Consumer_price_index_CPI],
+    [coicops.All_Items],
+    [transforms.Index],
+    ["M"]
+]
+keystr = idata.utils.make_key_str(key)
+
+# Retrieve
+cpi = idata.retrieval.imfdata_by_key(dataset="CPI", key=keystr)
+cpi.head()
+```
+
+
