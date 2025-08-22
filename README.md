@@ -1,6 +1,5 @@
 # iData
 
-
 ``` python
 from IPython.display import display
 import pandas as pd
@@ -73,17 +72,6 @@ mydatasets
 <div>
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-&#10;    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-&#10;    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 
 |     | id                  | version | agencyID | name_en                                           |
 |-----|---------------------|---------|----------|---------------------------------------------------|
@@ -116,17 +104,6 @@ res
 <div>
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-&#10;    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-&#10;    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 
 |     | id   | version | agencyID | name_en                                     |
 |-----|------|---------|----------|---------------------------------------------|
@@ -149,17 +126,6 @@ weolive
 <div>
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-&#10;    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-&#10;    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 
 |     | id  | version | agencyID | name_en |
 |-----|-----|---------|----------|---------|
@@ -180,17 +146,6 @@ mydatasets
 <div>
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-&#10;    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-&#10;    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 
 |     | id                  | version | agencyID | name_en                                           |
 |-----|---------------------|---------|----------|---------------------------------------------------|
@@ -219,17 +174,6 @@ weolive
 <div>
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-&#10;    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-&#10;    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 
 |     | id       | version | agencyID    | name_en                           |
 |-----|----------|---------|-------------|-----------------------------------|
@@ -256,17 +200,6 @@ dimensions
 <div>
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-&#10;    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-&#10;    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 
 |     | Dimension   |
 |-----|-------------|
@@ -289,17 +222,6 @@ dimensions
 <div>
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-&#10;    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-&#10;    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 
 |     | Dimension              |
 |-----|------------------------|
@@ -394,17 +316,6 @@ cpi
 <div>
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-&#10;    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-&#10;    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 
 |      | INDEX_TYPE | COICOP_1999 | TYPE_OF_TRANSFORMATION | COUNTRY | FREQUENCY | IFS_FLAG | COMMON_REFERENCE_PERIOD | OVERLAP | SCALE | ACCESS_SHARING_LEVEL | SECURITY_CLASSIFICATION | TIME_PERIOD | value      | date       |
 |------|------------|-------------|------------------------|---------|-----------|----------|-------------------------|---------|-------|----------------------|-------------------------|-------------|------------|------------|
@@ -443,17 +354,6 @@ weo
 <div>
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-&#10;    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-&#10;    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 
 |     | INDICATOR | COUNTRY | FREQUENCY | LATEST_ACTUAL_ANNUAL_DATA | OVERLAP | SCALE | METHODOLOGY_NOTES                                 | TIME_PERIOD | value | date       |
 |-----|-----------|---------|-----------|---------------------------|---------|-------|---------------------------------------------------|-------------|-------|------------|
@@ -490,17 +390,6 @@ weo_live
 <div>
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-&#10;    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-&#10;    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 
 |     | INDICATOR | COUNTRY | FREQUENCY | DESK_SERIES | OVERLAP | SCALE | TIME_PERIOD | value    | date       |
 |-----|-----------|---------|-----------|-------------|---------|-------|-------------|----------|------------|
@@ -538,17 +427,6 @@ codelists
 <div>
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-&#10;    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-&#10;    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 
 |     | codelist_id             | name                      | version | n_codes |
 |-----|-------------------------|---------------------------|---------|---------|
@@ -579,17 +457,6 @@ dept
 <div>
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-&#10;    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-&#10;    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 
 |     | code_id | name                                              | description |
 |-----|---------|---------------------------------------------------|-------------|
@@ -678,17 +545,6 @@ cpi.head()
 <div>
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-&#10;    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-&#10;    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 
 |     | INDEX_TYPE | COICOP_1999 | TYPE_OF_TRANSFORMATION | COUNTRY | FREQUENCY | IFS_FLAG | COMMON_REFERENCE_PERIOD | OVERLAP | SCALE | ACCESS_SHARING_LEVEL | SECURITY_CLASSIFICATION | TIME_PERIOD | value    | date       |
 |-----|------------|-------------|------------------------|---------|-----------|----------|-------------------------|---------|-------|----------------------|-------------------------|-------------|----------|------------|
