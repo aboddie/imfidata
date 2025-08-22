@@ -1,6 +1,31 @@
 # iData
 
 
+``` python
+from IPython.display import display
+import pandas as pd
+
+# Force DataFrame output as Markdown
+def format_df_as_markdown(df):
+    if isinstance(df, pd.DataFrame):
+        display(df.to_markdown(index=False), raw=True)
+    else:
+        display(df)
+
+# Override default execution behavior
+old_display = display
+def patched_display(*args):
+    for arg in args:
+        if isinstance(arg, pd.DataFrame):
+            format_df_as_markdown(arg)
+            return
+    old_display(*args)
+
+# Monkey-patch display (works in most Quarto/Jupyter contexts)
+import sys
+sys.displayhook = lambda x: format_df_as_markdown(x) if isinstance(x, pd.DataFrame) else old_display(x)
+```
+
 ## Why this tutorial?
 
 IMF’s SDMX endpoints power gems like CPI, GFS, and WEO. The official
@@ -60,19 +85,19 @@ mydatasets
     }
 </style>
 
-|     | id      | version | agencyID | name_en                                           |
-|-----|---------|---------|----------|---------------------------------------------------|
-| 0   | AFRREO  | 6.0.1   | IMF.AFR  | Sub-Saharan Africa Regional Economic Outlook (... |
-| 1   | MFS_ODC | 9.0.1   | IMF.STA  | Monetary and Financial Statistics (MFS), Other... |
-| 2   | PIP     | 4.0.0   | IMF.STA  | Portfolio Investment Positions by Counterpart ... |
-| 3   | HPD     | 1.0.0   | IMF.FAD  | Historical Public Debt (HPD)                      |
-| 4   | APDREO  | 6.0.0   | IMF.APD  | Asia and Pacific Regional Economic Outlook (AP... |
-| ... | ...     | ...     | ...      | ...                                               |
-| 62  | DIP     | 12.0.0  | IMF.STA  | Direct Investment Positions by Counterpart Eco... |
-| 63  | SRD     | 1.0.0   | IMF.RES  | Structural Reform Database (SRD)                  |
-| 64  | BOP     | 21.0.0  | IMF.STA  | Balance of Payments (BOP)                         |
-| 65  | QGFS    | 11.0.0  | IMF.STA  | Quarterly Government Finance Statistics (QGFS)    |
-| 66  | PI      | 2.0.0   | IMF.STA  | Production Indexes (PI)                           |
+|     | id                  | version | agencyID | name_en                                           |
+|-----|---------------------|---------|----------|---------------------------------------------------|
+| 0   | AFRREO              | 6.0.1   | IMF.AFR  | Sub-Saharan Africa Regional Economic Outlook (... |
+| 1   | HPD                 | 1.0.0   | IMF.FAD  | Historical Public Debt (HPD)                      |
+| 2   | PI                  | 2.0.0   | IMF.STA  | Production Indexes (PI)                           |
+| 3   | APDREO              | 6.0.0   | IMF.APD  | Asia and Pacific Regional Economic Outlook (AP... |
+| 4   | MFS_ODC             | 9.0.1   | IMF.STA  | Monetary and Financial Statistics (MFS), Other... |
+| ... | ...                 | ...     | ...      | ...                                               |
+| 62  | FSIC                | 13.0.1  | IMF.STA  | Financial Soundness Indicators (FSI), Core and... |
+| 63  | ANEA                | 6.0.1   | IMF.STA  | National Economic Accounts (NEA), Annual Data     |
+| 64  | ISORA_2018_DATA_PUB | 2.0.0   | ISORA    | ISORA 2018 Data                                   |
+| 65  | FM                  | 5.0.0   | IMF.FAD  | Fiscal Monitor (FM)                               |
+| 66  | GFS_COFOG           | 11.0.0  | IMF.STA  | GFS Government Expenditures by Function           |
 
 <p>67 rows × 4 columns</p>
 </div>
@@ -105,10 +130,10 @@ res
 
 |     | id   | version | agencyID | name_en                                     |
 |-----|------|---------|----------|---------------------------------------------|
-| 3   | HPD  | 1.0.0   | IMF.FAD  | Historical Public Debt (HPD)                |
-| 30  | FM   | 5.0.0   | IMF.FAD  | Fiscal Monitor (FM)                         |
-| 47  | GDD  | 2.0.0   | IMF.FAD  | Global Debt Database (GDD)                  |
-| 57  | ICSD | 1.0.0   | IMF.FAD  | Investment and Capital Stock Dataset (ICSD) |
+| 1   | HPD  | 1.0.0   | IMF.FAD  | Historical Public Debt (HPD)                |
+| 19  | GDD  | 2.0.0   | IMF.FAD  | Global Debt Database (GDD)                  |
+| 38  | ICSD | 1.0.0   | IMF.FAD  | Investment and Capital Stock Dataset (ICSD) |
+| 65  | FM   | 5.0.0   | IMF.FAD  | Fiscal Monitor (FM)                         |
 
 </div>
 
@@ -167,19 +192,19 @@ mydatasets
     }
 </style>
 
-|     | id      | version | agencyID    | name_en                                           |
-|-----|---------|---------|-------------|---------------------------------------------------|
-| 0   | AFRREO  | 6.0.1   | IMF.AFR     | Sub-Saharan Africa Regional Economic Outlook (... |
-| 1   | FSI     | 3.0.1   | IMF.RES     | Financial Stress Index (FSI)                      |
-| 2   | MFS_ODC | 9.0.1   | IMF.STA     | Monetary and Financial Statistics (MFS), Other... |
-| 3   | PIP     | 4.0.0   | IMF.STA     | Portfolio Investment Positions by Counterpart ... |
-| 4   | GDS     | 2.0.0   | IMF.RES.GDS | Global Data Source (GDS)                          |
-| ... | ...     | ...     | ...         | ...                                               |
-| 80  | SRD     | 1.0.0   | IMF.RES     | Structural Reform Database (SRD)                  |
-| 81  | BOP     | 21.0.0  | IMF.STA     | Balance of Payments (BOP)                         |
-| 82  | QGFS    | 11.0.0  | IMF.STA     | Quarterly Government Finance Statistics (QGFS)    |
-| 83  | PI      | 2.0.0   | IMF.STA     | Production Indexes (PI)                           |
-| 84  | CCI     | 3.0.0   | IMF.STA     | Climate Change Indicators (CCI)                   |
+|     | id                  | version | agencyID | name_en                                           |
+|-----|---------------------|---------|----------|---------------------------------------------------|
+| 0   | AFRREO              | 6.0.1   | IMF.AFR  | Sub-Saharan Africa Regional Economic Outlook (... |
+| 1   | FSI                 | 3.0.1   | IMF.RES  | Financial Stress Index (FSI)                      |
+| 2   | HPD                 | 1.0.0   | IMF.FAD  | Historical Public Debt (HPD)                      |
+| 3   | PI                  | 2.0.0   | IMF.STA  | Production Indexes (PI)                           |
+| 4   | RE                  | 1.0.0   | IMF.STA  | Renewable Energy (RE)                             |
+| ... | ...                 | ...     | ...      | ...                                               |
+| 80  | ANEA                | 6.0.1   | IMF.STA  | National Economic Accounts (NEA), Annual Data     |
+| 81  | ISORA_2018_DATA_PUB | 2.0.0   | ISORA    | ISORA 2018 Data                                   |
+| 82  | FM                  | 5.0.0   | IMF.FAD  | Fiscal Monitor (FM)                               |
+| 83  | GFS_COFOG           | 11.0.0  | IMF.STA  | GFS Government Expenditures by Function           |
+| 84  | PER                 | 2.0.0   | IMF.HRD  | Pension Exchange Rates (PER)                      |
 
 <p>85 rows × 4 columns</p>
 </div>
@@ -208,7 +233,7 @@ weolive
 
 |     | id       | version | agencyID    | name_en                           |
 |-----|----------|---------|-------------|-----------------------------------|
-| 7   | WEO_LIVE | 3.0.0   | IMF.RES.WEO | World Economic Outlook (WEO) Live |
+| 8   | WEO_LIVE | 3.0.0   | IMF.RES.WEO | World Economic Outlook (WEO) Live |
 
 </div>
 
