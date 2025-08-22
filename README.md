@@ -48,19 +48,19 @@ mydatasets
 
 <div>
 
-|     | id                  | version | agencyID | name_en                                           |
-|-----|---------------------|---------|----------|---------------------------------------------------|
-| 0   | AFRREO              | 6.0.1   | IMF.AFR  | Sub-Saharan Africa Regional Economic Outlook (... |
-| 1   | HPD                 | 1.0.0   | IMF.FAD  | Historical Public Debt (HPD)                      |
-| 2   | PI                  | 2.0.0   | IMF.STA  | Production Indexes (PI)                           |
-| 3   | APDREO              | 6.0.0   | IMF.APD  | Asia and Pacific Regional Economic Outlook (AP... |
-| 4   | MFS_ODC             | 9.0.1   | IMF.STA  | Monetary and Financial Statistics (MFS), Other... |
-| ... | ...                 | ...     | ...      | ...                                               |
-| 62  | FSIC                | 13.0.1  | IMF.STA  | Financial Soundness Indicators (FSI), Core and... |
-| 63  | ANEA                | 6.0.1   | IMF.STA  | National Economic Accounts (NEA), Annual Data     |
-| 64  | ISORA_2018_DATA_PUB | 2.0.0   | ISORA    | ISORA 2018 Data                                   |
-| 65  | FM                  | 5.0.0   | IMF.FAD  | Fiscal Monitor (FM)                               |
-| 66  | GFS_COFOG           | 11.0.0  | IMF.STA  | GFS Government Expenditures by Function           |
+|     | id       | version | agencyID | name_en                                           |
+|-----|----------|---------|----------|---------------------------------------------------|
+| 0   | IIPCC    | 13.0.0  | IMF.STA  | Currency Composition of the International Inve... |
+| 1   | FSICDM   | 7.0.0   | IMF.STA  | Financial Soundness Indicators (FSI), Concentr... |
+| 2   | ICSD     | 1.0.0   | IMF.FAD  | Investment and Capital Stock Dataset (ICSD)       |
+| 3   | EER      | 6.0.0   | IMF.STA  | Effective Exchange Rate (EER)                     |
+| 4   | QGDP_WCA | 3.0.0   | IMF.STA  | Quarterly Gross Domestic Product (GDP), World ... |
+| ... | ...      | ...     | ...      | ...                                               |
+| 62  | SRD      | 1.0.0   | IMF.RES  | Structural Reform Database (SRD)                  |
+| 63  | GDD      | 2.0.0   | IMF.FAD  | Global Debt Database (GDD)                        |
+| 64  | ITG      | 4.0.0   | IMF.STA  | International Trade in Goods (ITG)                |
+| 65  | MFS_DC   | 7.0.1   | IMF.STA  | Monetary and Financial Statistics (MFS), Depos... |
+| 66  | APDREO   | 6.0.0   | IMF.APD  | Asia and Pacific Regional Economic Outlook (AP... |
 
 <p>67 rows × 4 columns</p>
 </div>
@@ -82,10 +82,10 @@ res
 
 |     | id   | version | agencyID | name_en                                     |
 |-----|------|---------|----------|---------------------------------------------|
-| 1   | HPD  | 1.0.0   | IMF.FAD  | Historical Public Debt (HPD)                |
-| 19  | GDD  | 2.0.0   | IMF.FAD  | Global Debt Database (GDD)                  |
-| 38  | ICSD | 1.0.0   | IMF.FAD  | Investment and Capital Stock Dataset (ICSD) |
-| 65  | FM   | 5.0.0   | IMF.FAD  | Fiscal Monitor (FM)                         |
+| 2   | ICSD | 1.0.0   | IMF.FAD  | Investment and Capital Stock Dataset (ICSD) |
+| 25  | HPD  | 1.0.0   | IMF.FAD  | Historical Public Debt (HPD)                |
+| 26  | FM   | 5.0.0   | IMF.FAD  | Fiscal Monitor (FM)                         |
+| 63  | GDD  | 2.0.0   | IMF.FAD  | Global Debt Database (GDD)                  |
 
 </div>
 
@@ -381,19 +381,19 @@ codelists
 
 <div>
 
-|     | codelist_id             | name                      | version | n_codes |
-|-----|-------------------------|---------------------------|---------|---------|
-| 0   | CL_STATISTICAL_MEASURES | Statistical Measures      | 1.6.0   | 23      |
-| 1   | CL_FUNCTIONAL_CAT       | Functional category       | 2.3.0   | 72      |
-| 2   | CL_ACCESS_SHARING_LEVEL | Access and Sharing Level  | 1.0.2   | 8       |
-| 3   | CL_TRADE_FLOW           | Trade flow                | 2.1.0   | 50      |
-| 4   | CL_S_ADJUSTMENT         | Seasonal Adjustment       | 1.0.2   | 17      |
-| ... | ...                     | ...                       | ...     | ...     |
-| 121 | CL_COMMODITY            | Commodity                 | 2.2.0   | 135     |
-| 122 | CL_DERIVATION_TYPE      | Derivation Type           | 1.2.1   | 12      |
-| 123 | CL_CIVIL_STATUS         | Civil (or Marital) Status | 1.0.1   | 8       |
-| 124 | CL_EXRATE               | Exchange Rate             | 1.2.0   | 37      |
-| 125 | CL_TOPIC                | Topic                     | 2.2.0   | 118     |
+|     | codelist_id        | name                                  | version | n_codes |
+|-----|--------------------|---------------------------------------|---------|---------|
+| 0   | GF049              |                                       | None    | 1       |
+| 1   | GF048              |                                       | None    | 1       |
+| 2   | GF047              |                                       | None    | 1       |
+| 3   | GF046              |                                       | None    | 1       |
+| 4   | GF045              |                                       | None    | 1       |
+| ... | ...                | ...                                   | ...     | ...     |
+| 121 | CL_DERIVATION_TYPE | Derivation Type                       | 1.2.1   | 12      |
+| 122 | CL_CONF_STATUS     | Confidentiality Status                | 1.0.0   | 12      |
+| 123 | CL_COMMODITY       | Commodity                             | 2.2.0   | 135     |
+| 124 | CL_GFS_STO         | GFS Stocks, Transactions, Other Flows | 2.9.0   | 389     |
+| 125 | CL_CIVIL_STATUS    | Civil (or Marital) Status             | 1.0.1   | 8       |
 
 <p>126 rows × 4 columns</p>
 </div>
