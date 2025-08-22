@@ -1,3 +1,5 @@
+
+
 ---
 title: "iData"
 format:
@@ -37,8 +39,8 @@ IMF’s SDMX endpoints power gems like CPI, GFS, and WEO. The official snippets 
 ### 1) Install
 
 ```{python}
-# If you don't have imfidata yet, uncomment and run:
-# %pip install imfidata
+# If you don't have imfidata yet run the following from a command line
+# pip install git+https://github.com/BasBBakkerIMF/imfidata.git
 ```
 
 ### 2) Import
