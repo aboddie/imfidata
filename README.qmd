@@ -18,31 +18,8 @@ freeze: auto
 jupyter: python3
 ---
 
-```{python}
-from IPython.display import display
-import pandas as pd
 
-# Force DataFrame output as Markdown
-def format_df_as_markdown(df):
-    if isinstance(df, pd.DataFrame):
-        display(df.to_markdown(index=False), raw=True)
-    else:
-        display(df)
-
-# Override default execution behavior
-old_display = display
-def patched_display(*args):
-    for arg in args:
-        if isinstance(arg, pd.DataFrame):
-            format_df_as_markdown(arg)
-            return
-    old_display(*args)
-
-# Monkey-patch display (works in most Quarto/Jupyter contexts)
-import sys
-sys.displayhook = lambda x: format_df_as_markdown(x) if isinstance(x, pd.DataFrame) else old_display(x)
-```
-## Why this tutorial?
+## Why imfidata?
 
 IMF’s SDMX endpoints power gems like CPI, GFS, and WEO. The official snippets are useful but not exactly beginner-friendly. This guide shows a clean, reproducible workflow using the `imfidata` package—focusing on:
 
