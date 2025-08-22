@@ -1,13 +1,14 @@
 ---
 title: "iData"
 format:
-  gfm:
-    df-print: kable   # or 'markdown'
-    code-copy: true
   html:
-    df-print: paged
     toc: false
     code-copy: true
+    df-print: paged
+  gfm:
+    df-print: kable
+    code-copy: true
+    anchor-sections: true
 execute:
   echo: true
   warning: false

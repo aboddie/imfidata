@@ -167,19 +167,19 @@ mydatasets
     }
 </style>
 
-|     | id       | version | agencyID | name_en                                           |
-|-----|----------|---------|----------|---------------------------------------------------|
-| 0   | CFBL     | 1.0.0   | IMF.STA  | Carbon Footprint of Bank Loans (CFBL)             |
-| 1   | IIPCC    | 13.0.0  | IMF.STA  | Currency Composition of the International Inve... |
-| 2   | FSICDM   | 7.0.0   | IMF.STA  | Financial Soundness Indicators (FSI), Concentr... |
-| 3   | ICSD     | 1.0.0   | IMF.FAD  | Investment and Capital Stock Dataset (ICSD)       |
-| 4   | WTOIMFTT | 2.0.1   | WTO      | WTO-IMF Tariff Tracker (WTOIMFTT)                 |
-| ... | ...      | ...     | ...      | ...                                               |
-| 80  | GDD      | 2.0.0   | IMF.FAD  | Global Debt Database (GDD)                        |
-| 81  | ITG      | 4.0.0   | IMF.STA  | International Trade in Goods (ITG)                |
-| 82  | GPI      | 3.0.0   | IMF.STA  | Government Policy Indicators (GPI)                |
-| 83  | MFS_DC   | 7.0.1   | IMF.STA  | Monetary and Financial Statistics (MFS), Depos... |
-| 84  | APDREO   | 6.0.0   | IMF.APD  | Asia and Pacific Regional Economic Outlook (AP... |
+|     | id      | version | agencyID    | name_en                                           |
+|-----|---------|---------|-------------|---------------------------------------------------|
+| 0   | AFRREO  | 6.0.1   | IMF.AFR     | Sub-Saharan Africa Regional Economic Outlook (... |
+| 1   | FSI     | 3.0.1   | IMF.RES     | Financial Stress Index (FSI)                      |
+| 2   | MFS_ODC | 9.0.1   | IMF.STA     | Monetary and Financial Statistics (MFS), Other... |
+| 3   | PIP     | 4.0.0   | IMF.STA     | Portfolio Investment Positions by Counterpart ... |
+| 4   | GDS     | 2.0.0   | IMF.RES.GDS | Global Data Source (GDS)                          |
+| ... | ...     | ...     | ...         | ...                                               |
+| 80  | SRD     | 1.0.0   | IMF.RES     | Structural Reform Database (SRD)                  |
+| 81  | BOP     | 21.0.0  | IMF.STA     | Balance of Payments (BOP)                         |
+| 82  | QGFS    | 11.0.0  | IMF.STA     | Quarterly Government Finance Statistics (QGFS)    |
+| 83  | PI      | 2.0.0   | IMF.STA     | Production Indexes (PI)                           |
+| 84  | CCI     | 3.0.0   | IMF.STA     | Climate Change Indicators (CCI)                   |
 
 <p>85 rows × 4 columns</p>
 </div>
@@ -208,7 +208,7 @@ weolive
 
 |     | id       | version | agencyID    | name_en                           |
 |-----|----------|---------|-------------|-----------------------------------|
-| 37  | WEO_LIVE | 3.0.0   | IMF.RES.WEO | World Economic Outlook (WEO) Live |
+| 7   | WEO_LIVE | 3.0.0   | IMF.RES.WEO | World Economic Outlook (WEO) Live |
 
 </div>
 
@@ -525,19 +525,19 @@ codelists
     }
 </style>
 
-|     | codelist_id        | name                                  | version | n_codes |
-|-----|--------------------|---------------------------------------|---------|---------|
-| 0   | GF049              |                                       | None    | 1       |
-| 1   | GF048              |                                       | None    | 1       |
-| 2   | GF047              |                                       | None    | 1       |
-| 3   | GF046              |                                       | None    | 1       |
-| 4   | GF045              |                                       | None    | 1       |
-| ... | ...                | ...                                   | ...     | ...     |
-| 121 | CL_DERIVATION_TYPE | Derivation Type                       | 1.2.1   | 12      |
-| 122 | CL_CONF_STATUS     | Confidentiality Status                | 1.0.0   | 12      |
-| 123 | CL_COMMODITY       | Commodity                             | 2.2.0   | 135     |
-| 124 | CL_GFS_STO         | GFS Stocks, Transactions, Other Flows | 2.9.0   | 389     |
-| 125 | CL_CIVIL_STATUS    | Civil (or Marital) Status             | 1.0.1   | 8       |
+|     | codelist_id             | name                      | version | n_codes |
+|-----|-------------------------|---------------------------|---------|---------|
+| 0   | CL_STATISTICAL_MEASURES | Statistical Measures      | 1.6.0   | 23      |
+| 1   | CL_FUNCTIONAL_CAT       | Functional category       | 2.3.0   | 72      |
+| 2   | CL_ACCESS_SHARING_LEVEL | Access and Sharing Level  | 1.0.2   | 8       |
+| 3   | CL_TRADE_FLOW           | Trade flow                | 2.1.0   | 50      |
+| 4   | CL_S_ADJUSTMENT         | Seasonal Adjustment       | 1.0.2   | 17      |
+| ... | ...                     | ...                       | ...     | ...     |
+| 121 | CL_COMMODITY            | Commodity                 | 2.2.0   | 135     |
+| 122 | CL_DERIVATION_TYPE      | Derivation Type           | 1.2.1   | 12      |
+| 123 | CL_CIVIL_STATUS         | Civil (or Marital) Status | 1.0.1   | 8       |
+| 124 | CL_EXRATE               | Exchange Rate             | 1.2.0   | 37      |
+| 125 | CL_TOPIC                | Topic                     | 2.2.0   | 118     |
 
 <p>126 rows × 4 columns</p>
 </div>
