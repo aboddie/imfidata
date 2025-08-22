@@ -1,10 +1,13 @@
 ---
 title: "iData"
 format:
+  gfm:
+    df-print: kable   # or 'markdown'
+    code-copy: true
   html:
+    df-print: paged
     toc: false
     code-copy: true
-    df-print: paged   # Avoids inline <style> blocks from pandas HTML repr
 execute:
   echo: true
   warning: false
@@ -41,6 +44,7 @@ IMF’s SDMX endpoints power gems like CPI, GFS, and WEO. The official snippets 
 ```{python}
 import imfidata as idata
 ```
+
 
 ---
 
