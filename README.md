@@ -122,19 +122,19 @@ mydatasets
 
 <div>
 
-|     | id      | version | agencyID    | name_en                                           |
-|-----|---------|---------|-------------|---------------------------------------------------|
-| 0   | AFRREO  | 6.0.1   | IMF.AFR     | Sub-Saharan Africa Regional Economic Outlook (... |
-| 1   | FSI     | 3.0.1   | IMF.RES     | Financial Stress Index (FSI)                      |
-| 2   | MFS_ODC | 9.0.1   | IMF.STA     | Monetary and Financial Statistics (MFS), Other... |
-| 3   | PIP     | 4.0.0   | IMF.STA     | Portfolio Investment Positions by Counterpart ... |
-| 4   | GDS     | 2.0.0   | IMF.RES.GDS | Global Data Source (GDS)                          |
-| ... | ...     | ...     | ...         | ...                                               |
-| 80  | SRD     | 1.0.0   | IMF.RES     | Structural Reform Database (SRD)                  |
-| 81  | BOP     | 21.0.0  | IMF.STA     | Balance of Payments (BOP)                         |
-| 82  | QGFS    | 11.0.0  | IMF.STA     | Quarterly Government Finance Statistics (QGFS)    |
-| 83  | PI      | 2.0.0   | IMF.STA     | Production Indexes (PI)                           |
-| 84  | CCI     | 3.0.0   | IMF.STA     | Climate Change Indicators (CCI)                   |
+|     | id                  | version | agencyID | name_en                                           |
+|-----|---------------------|---------|----------|---------------------------------------------------|
+| 0   | AFRREO              | 6.0.1   | IMF.AFR  | Sub-Saharan Africa Regional Economic Outlook (... |
+| 1   | FSI                 | 3.0.1   | IMF.RES  | Financial Stress Index (FSI)                      |
+| 2   | HPD                 | 1.0.0   | IMF.FAD  | Historical Public Debt (HPD)                      |
+| 3   | PI                  | 2.0.0   | IMF.STA  | Production Indexes (PI)                           |
+| 4   | RE                  | 1.0.0   | IMF.STA  | Renewable Energy (RE)                             |
+| ... | ...                 | ...     | ...      | ...                                               |
+| 80  | ANEA                | 6.0.1   | IMF.STA  | National Economic Accounts (NEA), Annual Data     |
+| 81  | ISORA_2018_DATA_PUB | 2.0.0   | ISORA    | ISORA 2018 Data                                   |
+| 82  | FM                  | 5.0.0   | IMF.FAD  | Fiscal Monitor (FM)                               |
+| 83  | GFS_COFOG           | 11.0.0  | IMF.STA  | GFS Government Expenditures by Function           |
+| 84  | PER                 | 2.0.0   | IMF.HRD  | Pension Exchange Rates (PER)                      |
 
 <p>85 rows × 4 columns</p>
 </div>
@@ -152,7 +152,7 @@ weolive
 
 |     | id       | version | agencyID    | name_en                           |
 |-----|----------|---------|-------------|-----------------------------------|
-| 7   | WEO_LIVE | 3.0.0   | IMF.RES.WEO | World Economic Outlook (WEO) Live |
+| 8   | WEO_LIVE | 3.0.0   | IMF.RES.WEO | World Economic Outlook (WEO) Live |
 
 </div>
 
@@ -359,31 +359,9 @@ weo_live = idata.retrieval.imfdata_by_key(
     key="USA+NLD.LUR.A",
     needs_auth=True
 )
-weo_live
 ```
 
-<div>
-
-<div>
-
-|     | INDICATOR | COUNTRY | FREQUENCY | DESK_SERIES | OVERLAP | SCALE | TIME_PERIOD | value    | date       |
-|-----|-----------|---------|-----------|-------------|---------|-------|-------------|----------|------------|
-| 0   | LUR       | NLD     | A         | 138LUR      | OL      | 0     | 1980        | 3.354227 | 1980-12-31 |
-| 1   | LUR       | NLD     | A         | 138LUR      | OL      | 0     | 1981        | 4.583473 | 1981-12-31 |
-| 2   | LUR       | NLD     | A         | 138LUR      | OL      | 0     | 1982        | 6.524656 | 1982-12-31 |
-| 3   | LUR       | NLD     | A         | 138LUR      | OL      | 0     | 1983        | 8.254443 | 1983-12-31 |
-| 4   | LUR       | NLD     | A         | 138LUR      | OL      | 0     | 1984        | 8.089701 | 1984-12-31 |
-| ... | ...       | ...     | ...       | ...         | ...     | ...   | ...         | ...      | ...        |
-| 127 | LUR       | USA     | A         | 111LUR      | OL      | 0     | 2026        | 4.299424 | 2026-12-31 |
-| 128 | LUR       | USA     | A         | 111LUR      | OL      | 0     | 2027        | 4.023825 | 2027-12-31 |
-| 129 | LUR       | USA     | A         | 111LUR      | OL      | 0     | 2028        | 3.860212 | 2028-12-31 |
-| 130 | LUR       | USA     | A         | 111LUR      | OL      | 0     | 2029        | 3.746141 | 2029-12-31 |
-| 131 | LUR       | USA     | A         | 111LUR      | OL      | 0     | 2030        | 3.700654 | 2030-12-31 |
-
-<p>132 rows × 9 columns</p>
-</div>
-
-</div>
+As this data is confidential, we don’t display it here.
 
 If you get an auth error, confirm your credentials/tokens and that your
 environment exposes them (e.g., via env vars or a config file).

@@ -192,8 +192,10 @@ weo_live = idata.retrieval.imfdata_by_key(
     key="USA+NLD.LUR.A",
     needs_auth=True
 )
-weo_live
+
 ```
+
+As this data is confidential, we don't display it here.
 
 If you get an auth error, confirm your credentials/tokens and that your environment exposes them (e.g., via env vars or a config file).
 
