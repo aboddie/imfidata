@@ -67,7 +67,30 @@ def get_dimension_names(dataset: str) -> pd.DataFrame:
     return pd.DataFrame(dim_list, columns=["Dimension"])
 
 
-def get_dimension_values(dataset: str, dimension: str, addcl: bool = True) -> pd.DataFrame:
+def get_dimension_values(dataset: str, dimension: str) -> pd.DataFrame:
+    """
+    Return codes for a dimension as DataFrame with columns ["code", "name"].
+    Now correctly retrieves the codelist referenced by the dimension in the DSD.
+    """
+    ds = _get_dsd(dataset)
+    dsd = ds.datastructure[dataset]  # Get the actual DSD object
+
+    # Find the dimension
+    dim = dsd.structure.dimensions.get(dimension)
+    if not dim:
+        raise ValueError(f"Dimension '{dimension}' not found in DSD_{dataset}")
+
+    # Get the codelist via the dimension's representation
+    codelist_ref = dim.local_representation.enumerated
+    if not codelist_ref:
+        raise ValueError(f"Dimension '{dimension}' has no associated codelist")
+
+    # Resolve the codelist from the message
+    cl = ds.codelist[codelist_ref.id]
+    rows = [{"code": code.id, "name": str(code.name)} for code in cl.items]
+    return pd.DataFrame(rows, columns=["code", "name"])
+
+def get_dimension_values_old(dataset: str, dimension: str, addcl: bool = True) -> pd.DataFrame:
     """
     Return codes for a dimension as DataFrame with columns ["code", "name"].
     """

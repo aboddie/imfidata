@@ -14,3 +14,8 @@ with open("README.md", "w", encoding="utf-8") as f:
     f.write(content)
 
 print("✅ Removed <style> blocks from README.md")
+
+
+#
+# quarto render  README.qmd --to gfm
+# python clean.py 
