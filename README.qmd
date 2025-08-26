@@ -252,7 +252,7 @@ Use these to build lookup tables for reporting or to validate selections.
 import imfidata as idata
 
 # Discover dimensions
-_ = idata.metadata.get_dimension_names("CPI")
+dimenvs = idata.metadata.get_dimension_names("CPI")
 
 # Build dim envs (with autocomplete)
 indexes_df, indexes    = idata.metadata.get_subcodelist("CPI",dimenvs.INDEX_TYPE )
