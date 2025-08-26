@@ -27,11 +27,9 @@ classifiers = [
 ]
 
 dependencies = [
-    "requests",
     "pandas",
-    "lxml",
-	"sdmx1",
-	"msal"
+	  "sdmx1",
+	  "msal",
 ]
 
 [tool.setuptools]
