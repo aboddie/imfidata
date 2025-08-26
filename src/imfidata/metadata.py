@@ -16,7 +16,7 @@ from .utils import make_env_from_pairs
 def show_imf_datasets(needs_auth: bool = False) -> pd.DataFrame:
     """
     Fetches the IMF SDMX Dataflow registry and returns a DataFrame:
-    columns: id, version, agencyID, name
+    columns: id, version, agencyID, name_en
     """
     client = get_client()
     headers = get_request_header(needs_auth)
