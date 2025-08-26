@@ -112,7 +112,10 @@ dimensions
 ```
 
 You’ll see the dimension “names” you must populate when building a key (e.g., country, index type, COICOP, transformation, frequency).
-
+```{python}
+dimenvs=idata.metadata.get_dimension_name_env("CPI")
+dimenvs.TYPE_OF_TRANSFORMATION
+```
 ---
 
 ## Developer-friendly keys with autocompletion
@@ -120,26 +123,39 @@ You’ll see the dimension “names” you must populate when building a key (e.
 Typing cryptic SDMX codes by hand is… not fun. `imfidata` can generate Python “environments” that **autocomplete** descriptive names to the right codes.
 
 ### Build environments for CPI dimensions
-
 ```{python}
-indexes = idata.metadata.get_dimension_env("CPI", "INDEX_TYPE")
-indexes
+
+
+transforms_df, transforms=idata.metadata.get_subcodelist("CPI", 'CL_CPI_TYPE_OF_TRANSFORMATION') 
+
+transforms_df, transforms=idata.metadata.get_subcodelist("CPI", dimenvs.COICOP_1999) 
+
+
+transforms_df
+
+
+```
+```{python}
+indexes_df,indexes=idata.metadata.get_subcodelist("CPI",  dimenvs.INDEX_TYPE)
+indexes_df
 ```
 
 Type `indexes.` in your editor and let autocomplete reveal options like `Consumer_price_index_CPI`. Selecting it yields the correct code at runtime.
 
 ```{python}
-coicops = idata.metadata.get_dimension_env("CPI", "COICOP_1999")
-coicops
+coicops_df,coicops = idata.metadata.get_subcodelist("CPI", dimenvs.COICOP_1999)
+
+coicops_df
 ```
 
-### About transformation codes
+### Transformation codes
 
-> Note: In dimensions you may see `CL_TYPE_OF_TRANSFORMATION`, while in codelists you may see `CL_CPI_TYPE_OF_TRANSFORMATION`.
+
 
 ```{python}
-transforms = idata.metadata.get_dimension_env("CPI", "CL_CPI_TYPE_OF_TRANSFORMATION")
-transforms
+
+transforms_df,transforms = idata.metadata.get_subcodelist("CPI", dimenvs.TYPE_OF_TRANSFORMATION)
+transforms_df
 ```
 
 ---
@@ -239,9 +255,9 @@ import imfidata as idata
 _ = idata.metadata.get_dimension_names("CPI")
 
 # Build dim envs (with autocomplete)
-indexes    = idata.metadata.get_dimension_env("CPI", "INDEX_TYPE")
-coicops    = idata.metadata.get_dimension_env("CPI", "COICOP_1999")
-transforms = idata.metadata.get_dimension_env("CPI", "CL_CPI_TYPE_OF_TRANSFORMATION")  # or CL_TYPE_OF_TRANSFORMATION
+indexes_df, indexes    = idata.metadata.get_subcodelist("CPI",dimenvs.INDEX_TYPE )
+coicops_df,coicops    = idata.metadata.get_subcodelist("CPI", dimenvs.COICOP_1999)
+transforms_df,transforms = idata.metadata.get_subcodelist("CPI", dimenvs.TYPE_OF_TRANSFORMATION)
 
 # Assemble key
 key = [

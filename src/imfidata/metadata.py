@@ -55,7 +55,7 @@ def _get_dsd(dataset: str) -> sdmx.message.StructureMessage:
     return client.datastructure(dsd_id, params=dict(references="descendants"))
 
 
-def get_dimension_names(dataset: str) -> pd.DataFrame:
+def get_dimension_names_old(dataset: str) -> pd.DataFrame:
     """
     Return dimension names for a dataset as a DataFrame with one column "Dimension".
     """
@@ -67,6 +67,72 @@ def get_dimension_names(dataset: str) -> pd.DataFrame:
     return pd.DataFrame(dim_list, columns=["Dimension"])
 
 
+import pandas as pd
+import sdmx
+import pandas as pd
+import sdmx
+def resolve_codelist(ds_msg, component):
+    # 1) local representation
+    lr = getattr(component, "local_representation", None)
+    enum_ref = getattr(lr, "enumerated", None) if lr else None
+    if enum_ref and getattr(enum_ref, "id", None) in ds_msg.codelist:
+        return ds_msg.codelist[enum_ref.id]
+    # 2) concept's core representation
+    concept = getattr(component, "concept_identity", None)
+    cr = getattr(concept, "core_representation", None) if concept else None
+    enum_ref = getattr(cr, "enumerated", None) if cr else None
+    if enum_ref and getattr(enum_ref, "id", None) in ds_msg.codelist:
+        return ds_msg.codelist[enum_ref.id]
+    # 3) heuristic CL_<DIM_ID>
+    guess_id = f"CL_{component.id}"
+    if guess_id in ds_msg.codelist:
+        return ds_msg.codelist[guess_id]
+    return None
+
+def _fetch_dsd_message(flow_id: str) -> sdmx.message.StructureMessage:
+    """Fetch a StructureMessage that includes the DSD + codelists for a flow."""
+    cl = get_client()
+    # First try resolving the actual DSD ID via dataflow (handles agency/versioned IDs)
+    try:
+        df_msg = cl.dataflow(flow_id, params={"references": "all"})
+        dsd_ref = df_msg.dataflow[flow_id].structure
+        dsd_id = getattr(dsd_ref, "id", None) or f"DSD_{flow_id}"
+    except Exception:
+        dsd_id = f"DSD_{flow_id}"
+    # Fetch with descendants so codelists are included
+    return cl.datastructure(dsd_id, params={"references": "descendants"})
+
+def _extract_dsd(struct_msg, preferred_id: str = None):
+    """Return a DataStructureDefinition from a StructureMessage, robustly."""
+    for attr in ("metadatastructure", "datastructure", "structure", "_metadatastructure", "_datastructure"):
+        container = getattr(struct_msg, attr, None)
+        if isinstance(container, dict) and container:
+            if preferred_id and preferred_id in container:
+                return container[preferred_id]
+            return next(iter(container.values()))
+    # Fallback: scan all objects
+    for obj in struct_msg.iter_objects():
+        if obj.__class__.__name__.endswith("DataStructureDefinition"):
+            return obj
+    raise RuntimeError("No DataStructureDefinition found in StructureMessage.")
+
+def get_dimension_names(dataset: str) -> pd.DataFrame:
+    """
+    Return a DataFrame with two columns:
+      - dimension: the dimension ID
+      - codelists: the codelist ID if available, else None
+    """
+    msg = _fetch_dsd_message(dataset)
+    # Prefer DSD_<FLOW> as the key if present
+    preferred_id = f"DSD_{dataset}"
+    dsd = _extract_dsd(msg, preferred_id=preferred_id)
+
+    rows = []
+    for dim in dsd.dimensions.components:
+        cl = resolve_codelist(msg, dim)
+        rows.append({"dimension": dim.id, "codelists": getattr(cl, "id", None)})
+
+    return pd.DataFrame(rows, columns=["dimension", "codelists"])
 def get_dimension_values(dataset: str, dimension: str) -> pd.DataFrame:
     """
     Return codes for a dimension as DataFrame with columns ["code", "name"].
@@ -101,7 +167,7 @@ def get_dimension_values_old(dataset: str, dimension: str, addcl: bool = True) -
     return pd.DataFrame(rows, columns=["code", "name"])
 
 
-def get_dimension_values_env(dataset: str, dimension: str, addcl: bool = True) ->  DimensionEnv:
+def get_dimension_values_env(codelist: str, dimension: str) ->  DimensionEnv:
     """
     Return  the DataFrame 
 
@@ -129,12 +195,21 @@ def get_dimension_values_and_env(dataset: str, dimension: str, addcl: bool = Tru
     env = make_env_from_pairs((r["name"], r["code"]) for r in rows)
     return  df, env
 
+def get_dimension_name_env(dataset: str):
+    """
+    Convenience: build a dot-accessible env mapping
+    """
+    df = get_dimension_names(dataset)
+    pairs: Iterable[Tuple[str, str]] = [(row["dimension"], row["codelists"]) for _, row in df.iterrows()]
+    return make_env_from_pairs(pairs)
 
-def get_dimension_env(dataset: str, dimension: str, addcl: bool = True):
+
+
+def get_dimension_env(dataset: str, dimension: str):
     """
     Convenience: build a dot-accessible env mapping sanitized labels to codes.
     """
-    df = get_dimension_values(dataset, dimension, addcl=addcl)
+    df = get_dimension_values(dataset, dimension)
     pairs: Iterable[Tuple[str, str]] = [(row["name"], row["code"]) for _, row in df.iterrows()]
     return make_env_from_pairs(pairs)
 
@@ -174,4 +249,7 @@ def get_subcodelist(dataset: str, codelist_id: str) -> pd.DataFrame:
                 "description": str(getattr(code, "description", "")),
             }
         )
-    return pd.DataFrame(rows, columns=["code_id", "name", "description"])
+    df= pd.DataFrame(rows, columns=["code_id", "name", "description"])
+    pairs: Iterable[Tuple[str, str]] = [(row["name"], row["code_id"]) for _, row in df.iterrows()]
+    myenv= make_env_from_pairs(pairs)
+    return df,myenv
