@@ -7,7 +7,7 @@ import pandas as pd
 import sdmx
 from sdmx import Resource
 
-from . import auth
+from .auth import get_request_header
 from .sdmx_client import get_client
 from .utils import make_env_from_pairs
 
@@ -18,32 +18,19 @@ def show_imf_datasets(needs_auth: bool = False) -> pd.DataFrame:
     Fetches the IMF SDMX Dataflow registry and returns a DataFrame:
     columns: id, version, agencyID, name_en
     """
-    import requests
-    url = "https://api.imf.org/external/sdmx/2.1/dataflow?references=none&detail=allstubs"
-    headers = auth.auth_header(needs_auth=needs_auth)
-
-    resp = requests.get(url, headers=headers)
-    resp.raise_for_status()
-
-    root = ET.fromstring(resp.content)
-    ns = {
-        "str": "http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure",
-        "com": "http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common",
-        "xml": "http://www.w3.org/XML/1998/namespace",
-    }
-
+    client = get_client()
+    headers = get_request_header(needs_auth)
     rows = []
-    for df in root.findall(".//str:Dataflow", ns):
-        name_el = df.find("com:Name[@xml:lang='en']", ns)
-        rows.append(
+    for dataset in client.dataflow(headers=headers).iter_objects():
+        if isinstance(dataset, sdmx.model.v21.DataflowDefinition):
+            rows.append(
             {
-                "id": df.get("id"),
-                "version": df.get("version"),
-                "agencyID": df.get("agencyID"),
-                "name_en": name_el.text if name_el is not None else None,
+                "id": dataset.id,
+                "version": dataset.version,
+                "agencyID": dataset.maintainer,
+                "name_en": dataset.name,
             }
-        )
-
+            )
     return pd.DataFrame(rows, columns=["id", "version", "agencyID", "name_en"])
 
 
@@ -66,11 +53,6 @@ def get_dimension_names_old(dataset: str) -> pd.DataFrame:
     dim_list = sdmx.to_pandas(descriptor)
     return pd.DataFrame(dim_list, columns=["Dimension"])
 
-
-import pandas as pd
-import sdmx
-import pandas as pd
-import sdmx
 def resolve_codelist(ds_msg, component):
     # 1) local representation
     lr = getattr(component, "local_representation", None)
