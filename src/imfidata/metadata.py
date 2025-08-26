@@ -7,7 +7,7 @@ import pandas as pd
 import sdmx
 from sdmx import Resource
 
-from . import auth
+from .auth import get_request_header
 from .sdmx_client import get_client
 from .utils import make_env_from_pairs
 
@@ -19,8 +19,9 @@ def show_imf_datasets(needs_auth: bool = False) -> pd.DataFrame:
     columns: id, version, agencyID, name
     """
     client = get_client()
+    headers = get_request_header(needs_auth)
     rows = []
-    for dataset in client.dataflow().iter_objects():
+    for dataset in client.dataflow(headers=headers).iter_objects():
         if isinstance(dataset, sdmx.model.v21.DataflowDefinition):
             rows.append(
             {

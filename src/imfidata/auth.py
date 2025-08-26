@@ -60,7 +60,7 @@ def acquire_access_token(scopes: List[str] = SCOPES) -> Dict[str, str]:
     return result
 
 
-def auth_header(needs_auth: bool = True) -> Dict[str, str]:
+def get_request_header(needs_auth: bool = True) -> Dict[str, str]:
     """
     Return a standard header with optional Authorization.
     """

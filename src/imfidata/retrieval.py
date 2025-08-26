@@ -1,17 +1,10 @@
-
-
 # retrieval.py
 from __future__ import annotations
-from typing import Optional, Dict
 import pandas as pd
 import sdmx
 
 from .sdmx_client import get_client
-from . import auth
-from . import utils
-
-import os
-import tempfile
+from .auth import get_request_header
 
 
 def convert_time_period_auto(df, time_col='TIME_PERIOD', out_col='date'):
@@ -88,15 +81,9 @@ def imfdata_by_key(
     Returns:
       pandas.DataFrame of the time series.
     """
-    headers = {"User-Agent": "idata-script-client"}
+    client = get_client()
+    headers = get_request_header(needs_auth)
 
-    if needs_auth:
-        token_resp = auth.acquire_access_token()
-        token_type = token_resp.get("token_type", "Bearer")
-        access_token = token_resp["access_token"]
-        headers["Authorization"] = f"{token_type} {access_token}"
-
-    client = sdmx.Client('IMF_DATA')
     try:
         msg = client.data(
             resource_id=dataset,
