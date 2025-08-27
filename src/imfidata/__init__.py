@@ -5,19 +5,15 @@ imfidata: A Python package for retrieving and working with IMF SDMX data.
 from importlib.metadata import version, PackageNotFoundError
 
 # Public API
-from . import auth
-from . import metadata
-from . import retrieval
-from .utils import DimensionEnv, sanitize, make_key_str
+from .imfclient import IMFClient
+from .utils import DimensionEnv, sanitize, make_key_str, convert_time_period_auto
 
 __all__ = [
-    "auth",
-    "metadata",
-    "retrieval",
+    "IMFClient",
     "DimensionEnv",
     "sanitize",
     "make_key_str",
-    "sdmx_client"
+    "convert_time_period_auto"
 ]
 
 try:

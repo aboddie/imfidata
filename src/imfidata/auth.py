@@ -60,12 +60,12 @@ def acquire_access_token(scopes: List[str] = SCOPES) -> Dict[str, str]:
     return result
 
 
-def get_request_header(needs_auth: bool = True) -> Dict[str, str]:
+def get_request_header(auth: bool = True) -> Dict[str, str]:
     """
     Return a standard header with optional Authorization.
     """
     headers = {"User-Agent": "imfidata-client"}
-    if not needs_auth:
+    if not auth:
         return headers
 
     token_resp = acquire_access_token()
